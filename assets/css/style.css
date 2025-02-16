@@ -1,0 +1,56 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+
+}
+html,body{
+	height: 100%;
+	width: 100%;
+	font-family: "PP Woodland";
+}
+.page1
+{
+	height: 100vh;
+}
+.page1 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	
+}
+.page2
+{
+	height: 100vh;
+	background-color: #636E4D;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+.page2 h1{ 
+	text-align: center;
+	font-size: 4vw;
+	line-height: 4.4vw;
+	color: #434B34;
+}
+.page3
+{
+	height: 100vh;
+	background-color: #E3E3C4;
+
+}
+.page4
+{
+	height: 100vh;
+	background-color: #636E4D;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+.page4 h1{ 
+	text-align: center;
+	font-size: 4vw;
+	line-height: 4.4vw;
+	color: #434B34;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>FAQs Section</title>
+  <style>
+    /* Custom CSS for smooth open/close animation */
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-content.open {
+      max-height: 150px; /* Adjust based on your content height */
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+  <div class="max-w-xl w-full bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">Frequently Asked Questions</h2>
+    <p class="text-gray-600 mb-4">Here are some common questions and their answers.</p>
+    
+    <div id="faq" class="space-y-4">
+      <!-- Question 1 -->
+      <div class="faq-item border-b pb-2">
+        <button 
+          class="w-full text-left flex justify-between items-center py-2 text-lg font-medium text-gray-700 hover:text-blue-500"
+        >
+          Is there a free trial available?
+          <span class="transform transition-transform">&#9654;</span>
+        </button>
+        <div class="faq-content text-gray-600 text-sm pl-4">
+          Yes, we offer a free trial for the first 14 days.
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="faq-item border-b pb-2">
+        <button 
+          class="w-full text-left flex justify-between items-center py-2 text-lg font-medium text-gray-700 hover:text-blue-500"
+        >
+          How does the billing work?
+          <span class="transform transition-transform">&#9654;</span>
+        </button>
+        <div class="faq-content text-gray-600 text-sm pl-4">
+          Billing is monthly and automatically renews unless canceled.
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="faq-item border-b pb-2">
+        <button 
+          class="w-full text-left flex justify-between items-center py-2 text-lg font-medium text-gray-700 hover:text-blue-500"
+        >
+          Can other info be added to an invoice?
+          <span class="transform transition-transform">&#9654;</span>
+        </button>
+        <div class="faq-content text-gray-600 text-sm pl-4">
+          Yes, you can add additional details to your invoice in the settings.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+  const faqItems = document.querySelectorAll(".faq-item");
+
+  faqItems.forEach((item) => {
+    const button = item.querySelector("button");
+    const content = item.querySelector(".faq-content");
+    const icon = item.querySelector("span");
+
+    button.addEventListener("click", () => {
+      // Close all FAQ items
+      faqItems.forEach((el) => {
+        el.querySelector(".faq-content").classList.remove("open");
+        el.querySelector("span").classList.remove("rotate-90");
+      });
+
+      // Toggle current FAQ item
+      content.classList.toggle("open");
+      icon.classList.toggle("rotate-90");
+    });
+  });
+});
+
+  </script>
+</body>
+</html>

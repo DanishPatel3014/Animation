@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Lines Animation with Blink-In Effect</title>
+  <style>
+    svg {
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+</head>
+<body>
+  <h1>Sequential Line Animation with Blink-In</h1>
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <!-- Line 1 -->
+    <line id="line1" x1="50" y1="20" x2="50" y2="10" stroke="orange" stroke-width="2" stroke-linecap="round" opacity="0" />
+    <!-- Line 2 -->
+    <line id="line2" x1="60" y1="25" x2="70" y2="15" stroke="orange" stroke-width="2" stroke-linecap="round" opacity="0" />
+    <!-- Line 3 -->
+    <line id="line3" x1="70" y1="40" x2="80" y2="40" stroke="orange" stroke-width="2" stroke-linecap="round" opacity="0" />
+    <!-- Line 4 -->
+    <line id="line4" x1="60" y1="55" x2="70" y2="65" stroke="orange" stroke-width="2" stroke-linecap="round" opacity="0" />
+    <!-- Line 5 -->
+    <line id="line5" x1="50" y1="60" x2="50" y2="70" stroke="orange" stroke-width="2" stroke-linecap="round" opacity="0" />
+  </svg>
+
+  <script>
+    // GSAP animation for line sequential animation
+    gsap.timeline({ repeat: -1, repeatDelay: 0.5 })
+      .to("#line1", { strokeDasharray: "10, 0", opacity: 1, duration: 0.7 })
+      .to("#line2", { strokeDasharray: "10, 0", opacity: 1, duration: 0.7 }, "-=0.5")
+      .to("#line3", { strokeDasharray: "10, 0", opacity: 1, duration: 0.7 }, "-=0.5")
+      .to("#line4", { strokeDasharray: "10, 0", opacity: 1, duration: 0.7 }, "-=0.5")
+      .to("#line5", { strokeDasharray: "10, 0", opacity: 1, duration: 0.7 }, "-=0.5");
+  </script>
+</body>
+</html>

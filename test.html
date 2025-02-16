@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Scrolling Timeline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fef8ef;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #555;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .timeline {
+            position: relative;
+            width: 60%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 80px 0;
+            position: relative;
+        }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            background-color: transparent;
+            border: 2px solid #f6a30a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f6a30a;
+            font-weight: bold;
+            font-size: 18px;
+            z-index: 2;
+            transition: background-color 0.4s ease-out, color 0.4s ease-out;
+        }
+
+        .circle.filled {
+            background-color: #f6a30a;
+            color: white;
+        }
+
+        .line-container {
+            position: absolute;
+            left: 25px;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background-color: #e0e0e0;
+            z-index: 1;
+        }
+
+        .line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 5px;
+            background-color: #f6a30a;
+            height: 0%;
+            transition: height 0.4s ease-out;
+        }
+
+        .step-content {
+            margin-left: 80px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Section above timeline -->
+    <div class="section" style="background-color: #e8f5e9;">Scroll Down to See Timeline</div>
+
+    <!-- Timeline starts here -->
+    <div class="timeline">
+        <div class="line-container">
+            <div class="line" id="timeline-line"></div>
+        </div>
+
+        <div class="step" id="step-1">
+            <div class="circle" data-step="1">1</div>
+            <div class="step-content">
+                <h3>Step 1</h3>
+                <p>Create modern job ads</p>
+            </div>
+        </div>
+
+        <div class="step" id="step-2">
+            <div class="circle" data-step="2">2</div>
+            <div class="step-content">
+                <h3>Step 2</h3>
+                <p>Post to multiple boards at once</p>
+            </div>
+        </div>
+
+        <div class="step" id="step-3">
+            <div class="circle" data-step="3">3</div>
+            <div class="step-content">
+                <h3>Step 3</h3>
+                <p>Receive more great applications</p>
+            </div>
+        </div>
+    </div>
+    <!-- Section below timeline -->
+    <div class="section" style="background-color: #ffe0b2;">Scroll Up to See Timeline</div>
+
+    <script>
+        const timelineLine = document.getElementById("timeline-line");
+        const steps = document.querySelectorAll(".step");
+        const circles = document.querySelectorAll(".circle");
+
+        window.addEventListener("scroll", () => {
+            let viewportHeight = window.innerHeight;
+            let totalHeight = 0;
+
+            steps.forEach((step, index) => {
+                const rect = step.getBoundingClientRect();
+                const stepCenter = rect.top + rect.height / 2;
+                const circle = circles[index];
+
+                if (stepCenter <= viewportHeight / 2) {
+                    totalHeight = ((index + 1) / steps.length) * 100;
+                    circle.classList.add("filled");
+                } else {
+                    circle.classList.remove("filled");
+                }
+            });
+
+            timelineLine.style.height = `${totalHeight}%`;
+        });
+    </script>
+</body>
+</html>

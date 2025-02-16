@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <!-- Section 1 -->
+    <section class="w-full h-screen bg-blue-100 flex items-center justify-center">
+        <h1 class="text-4xl font-bold">First Section</h1>
+    </section>
+
+    <!-- Section 2 with pinned animation -->
+    <section class="w-full bg-slate-900    relative" id="section2">
+        
+
+        <!-- Cards Container -->
+        <div class="cards-container relative h-full flex flex-col gap-24 py-[15vh] items-center">
+            <!-- Card 1 -->
+            <div class="card sticky top-[15vh] w-[25vw] bg-[#2F251E] text-white text-center shadow-xl h-[800px] py-12 rounded-lg">
+                <h2>01</h2>
+            </div>
+            <!-- Card 2 -->
+            <div class="card sticky top-[15vh] w-[25vw] bg-[#43392F] text-white text-center shadow-xl h-[800px] py-12 rounded-lg">
+                <h2>02</h2>
+            </div>
+            <!-- Card 3 -->
+            <div class="card sticky top-[15vh] w-[25vw] bg-[#2F251E] text-white text-center shadow-xl h-[800px] py-12 rounded-lg">
+                <h2>03</h2>
+            </div>
+            <!-- Card 4 -->
+            <div class="card sticky top-[15vh] w-[25vw] bg-[#43392F] text-white text-center shadow-xl h-[800px] py-12 rounded-lg">
+                <h2>04</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="w-full h-screen bg-green-100 flex items-center justify-center">
+        <h1 class="text-4xl font-bold">Third Section</h1>
+    </section>
+
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script>
+        // Initialize Lenis
+        const lenis = new Lenis();
+
+        // Use requestAnimationFrame to continuously update the scroll
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Set initial state for background image
+        gsap.set("#bgImage", { scale: 1 });
+
+        // Pin the entire section and animate background image
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#section2",
+                start: "top top",
+                end: "+=400%", // Adjust based on total scroll needed
+                scrub: 1,
+                
+                anticipatePin: 1,
+                markers: true // Remove in production
+            }
+        });
+
+        // Background image scale out
+        tl.to("#bgImage", {
+            scale: 1,
+            duration: 2
+        });
+
+        // Animate cards individually
+        gsap.utils.toArray(".card").forEach((card, index) => {
+            gsap.to(card, {
+                scale: 0.7,
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top", // Start animation when the card reaches the center
+                    end: "+=100%", // End animation after scrolling 100% of the viewport
+                    scrub: 1, // Smooth scrubbing effect
+                    markers: true // Remove in production
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Section 1 -->
+    <section class="w-full h-screen bg-blue-100 flex items-center justify-center">
+        <h1 class="text-4xl font-bold">First Section</h1>
+    </section>
+
+    <!-- Section 2 with pinned animation -->
+    <section class="relative w-full h-screen overflow-hidden" id="section2">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-[url('https://img.freepik.com/premium-photo/sci-fi-3d-purple-grid-from-80s_633872-110.jpg?w=1800')] bg-cover bg-center scale-125"
+            id="bgImage"></div>
+
+        <!-- Boxes Container -->
+        <div class="relative h-full flex flex-col items-center justify-center gap-12 p-8" id="boxesContainer">
+            <div class="box absolute w-[25vw] h-[250px] bg-white rounded-lg shadow-lg opacity-0 flex items-center justify-center text-xl font-bold">1</div>
+            <div class="box absolute w-[25vw] h-[250px] bg-orange-300 rounded-lg shadow-lg opacity-0 flex items-center justify-center text-xl font-bold">2</div>
+            <div class="box absolute w-[25vw] h-[250px] bg-amber-200 rounded-lg shadow-lg opacity-0 flex items-center justify-center text-xl font-bold">3</div>
+        </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="w-full h-screen bg-green-100 flex items-center justify-center">
+        <h1 class="text-4xl font-bold">Third Section</h1>
+    </section>
+
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script>
+        // Initialize Lenis for smooth scrolling
+        const lenis = new Lenis({
+            smooth: true,
+            lerp: 0.1
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Set initial states
+       // Set initial states
+gsap.set("#bgImage", { scale: 1.3 }); 
+gsap.set(".box", { opacity: 0, y: 800 });
+
+// Scroll-triggered timeline
+const tl = gsap.timeline({
+    scrollTrigger: {
+        trigger: "#section2",
+        start: "top top",
+        end: "+=300%",
+        scrub: 1,
+        pin: true
+    }
+});
+
+// Background Image Animation
+tl.to("#bgImage", { scale: 1, duration: 2 });
+
+// Box animations using loop
+gsap.utils.toArray(".box").forEach((box, index) => {
+    tl.to(box, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        delay: index * 0.3 // Har box thodi delay se animate hoga
+    });
+});
+
+    </script>
+</body>
+
+</html>
